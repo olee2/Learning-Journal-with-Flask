@@ -80,7 +80,7 @@ if __name__ == "__main__":
             title = "My first",
             date = datetime.datetime.now().date(),
             time_spent = 90,
-            learned = "Test"
+            learned = "Test",
             resources = "Test"
             )
     except models.IntegrityError:
