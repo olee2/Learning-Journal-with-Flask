@@ -79,10 +79,9 @@ if __name__ == "__main__":
         models.Entry.create(
             title = "My first",
             date = datetime.datetime.now().date(),
-            time_spent = 900,
-            learned = ("Learned more about how to use flask"
-                       "and python to create web apps."),
-            resources = "Alot."
+            time_spent = 90,
+            learned = "Test"
+            resources = "Test"
             )
     except models.IntegrityError:
         pass
