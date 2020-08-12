@@ -1,5 +1,4 @@
 from flask import Flask, g, render_template, flash, redirect, url_for, request
-from forms import EntryForm
 from peewee import *
 
 import models
@@ -58,16 +57,11 @@ def details(id_num):
 def edit(id_num):
     entry = models.Entry.select().where(models.Entry.id == id_num).get()
     if request.method == "POST":
-        if request.form["title"]:
-            entry.title = request.form["title"]
-        if request.form["date"]:
-            entry.date = datetime.datetime.strptime(request.form["date"], "%Y-%m-%d")
-        if request.form["timeSpent"]:
-            entry.time_spent=request.form["timeSpent"]
-        if request.form["whatILearned"]:
-            entry.learned = request.form["whatILearned"]
-        if request.form["ResourcesToRemember"]:
-            entry.resources = request.form["ResourcesToRemember"]
+        entry.title = request.form["title"]
+        entry.date = datetime.datetime.strptime(request.form["date"], "%Y-%m-%d")
+        entry.time_spent=request.form["timeSpent"]
+        entry.learned = request.form["whatILearned"]
+        entry.resources = request.form["ResourcesToRemember"]
         entry.save()
         return redirect(url_for("index"))
     return render_template("edit.html", entry=entry)
