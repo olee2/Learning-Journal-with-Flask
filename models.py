@@ -4,6 +4,7 @@ from peewee import *
 
 DATABASE = SqliteDatabase("journal.db")
 
+
 class Entry(Model):
     title = CharField(unique=True)
     date = DateTimeField(default=datetime.datetime.now)
@@ -14,8 +15,7 @@ class Entry(Model):
     class Meta:
         database = DATABASE
         order_by = ("-timestamp",)
-
-
+        
 
 def initialize():
     DATABASE.connect()
