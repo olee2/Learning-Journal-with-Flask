@@ -23,6 +23,13 @@
             <div class="container">
                 <div class="edit-entry">
                     <h2>Edit Entry</h2>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p> {{ message }} </p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                       <form action="{{ url_for('edit', id_num=entry.id) }}" method="POST" autocomplete="on">
                           <label for="title"> Title</label>
                           <input id="title" type="text" name="title" value="{{ entry.title }}"><br>
@@ -31,10 +38,11 @@
                           <label for="time-spent"> Time Spent</label>
                           <input id="time-spent" type="text" name="timeSpent" value="{{ entry.time_spent }}"><br>
                           <label for="what-i-learned">What I Learned</label>
-                          <textarea id="what-i-learned" rows="5" name="whatILearned" value="{{ entry.learned }}"></textarea>
+                          <textarea id="what-i-learned" rows="5" name="whatILearned">{{ entry.learned }}</textarea>
                           <label for="resources-to-remember">Resources to Remember</label>
-                          <textarea id="resources-to-remember" rows="5" name="ResourcesToRemember" value="{{ entry.resources }}"></textarea>
+                          <textarea id="resources-to-remember" rows="5" name="ResourcesToRemember">{{ entry.resources }}</textarea>
                           <input type="submit" value="Publish Entry" class="button">
+                          <a href="{{ url_for("delete", id_num=entry.id) }}" class="button button-secondary">Delete Entry</a>
                           <a href="{{ url_for("index") }}" class="button button-secondary">Cancel</a>
                       </form>
                 </div>
