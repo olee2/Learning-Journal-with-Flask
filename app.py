@@ -92,7 +92,7 @@ def new():
                             )
                         
                     except models.IntegrityError:
-                        flash("Please choose a unique title.")
+                        flash("Please choose a unique title.", "error")
                         return render_template("new.html",
                                                date=datetime.datetime.now(),
                                                title=title,
@@ -163,7 +163,7 @@ def edit(id_num):
                         entry.save()
                         
                     except models.IntegrityError:
-                        flash("Please choose a unique title.")
+                        flash("Please choose a unique title.", "error")
                         return render_template("edit.html", entry=entry)
                     
                     return redirect(url_for("index"))
@@ -175,11 +175,13 @@ def edit(id_num):
         
     return render_template("edit.html", entry=entry)
 
+
 @app.route("/entries/<int:id_num>", methods=("GET", "POST"))
 def details(id_num):
     """View the entry details."""
     entry = models.Entry.select().where(models.Entry.id == id_num).get()
     return render_template("detail.html", entry=entry)
+
 
 @app.route("/entries/<int:id_num>/delete", methods=("GET", "POST"))
 def delete(id_num):
