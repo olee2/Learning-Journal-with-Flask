@@ -23,17 +23,24 @@
             <div class="container">
                 <div class="new-entry">
                     <h2>New Entry</h2>
-                    <form action="{{ url_for("new") }}" method="POST">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p> {{ message }} </p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form action="{{ url_for("new") }}" method="POST" autocomplete="on">
                         <label for="title"> Title</label>
-                        <input id="title" type="text" name="title" value="title"><br>
+                        <input id="title" type="text" name="title" value="{{ title }}"><br>
                         <label for="date">Date</label>
-                        <input id="date" type="date" name="date"><br>
+                        <input id="date" type="date" name="date" value="{{ date.date().strftime("%Y-%m-%d") }}"><br>
                         <label for="time-spent"> Time Spent in Minutes</label>
-                        <input id="time-spent" type="text" name="timeSpent"><br>
+                        <input id="time-spent" type="text" name="timeSpent" value="{{ time_spent }}"><br>
                         <label for="what-i-learned">What I Learned</label>
-                        <textarea id="what-i-learned" rows="5" name="whatILearned"></textarea>
+                        <textarea id="what-i-learned" rows="5" name="whatILearned">{{ learned }}</textarea>
                         <label for="resources-to-remember">Resources to Remember</label>
-                        <textarea id="resources-to-remember" rows="5" name="ResourcesToRemember"></textarea>
+                        <textarea id="resources-to-remember" rows="5" name="ResourcesToRemember">{{ resources }}</textarea>
                         <input type="submit" value="Publish Entry" class="button">
                         <a href="{{ url_for("index") }}" class="button button-secondary">Cancel</a>
                     </form>
