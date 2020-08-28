@@ -1,4 +1,5 @@
-from flask import Flask, g, render_template, flash, redirect, url_for, request
+from flask import (Flask, g, render_template, flash,
+                   redirect, url_for, request)
 from peewee import *
 
 import models
@@ -42,7 +43,8 @@ def new():
     Gets data from html-form and stores it in variables. 
     Date is checked to see that it can be converted into datetime.
     Time spent is checked to see that it is a integer.
-    Title is checked to see that it contains characters and that it is a unique title.
+    Title is checked to see that it contains characters
+    and that it is a unique title.
     Creates an instance of the entry model. 
     """
     if request.method == "POST":
@@ -57,12 +59,12 @@ def new():
             
         except ValueError:
             flash("Please select a valid date. (dd.mm.yyyy)", "error")
-            return render_template("new.html", date=datetime.datetime.now(),
+            return render_template("new.html",
+                                   date=datetime.datetime.now(),
                                    title=title,
                                    time_spent=time_spent,
                                    learned=learned,
-                                   resources=resources
-                                   )
+                                   resources=resources)
         
         else:
             try:
@@ -70,7 +72,8 @@ def new():
                 
             except ValueError:
                 flash("Please fill in time spent as an integer.", "error")
-                return render_template("new.html", date=datetime.datetime.now(),
+                return render_template("new.html",
+                                       date=datetime.datetime.now(),
                                        title=title,
                                        time_spent=time_spent,
                                        learned=learned,
@@ -120,7 +123,8 @@ def edit(id_num):
     Gets data from the html-form and stores it in variables.
     Date is checked to see that it can be converted into datetime.
     Time spent is checked to see that it is a integer.
-    Title is checked to see that it contains characters and that it is a unique title.
+    Title is checked to see that it contains characters
+    and that it is a unique title.
     Updates the instance of the entry model. 
     """
     entry = models.Entry.select().where(models.Entry.id == id_num).get()
